@@ -1,9 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mad Marvel</string>
+    <string name="app_name">Mad-Marvel</string>
+    <string name="developer">Roger Silva</string>
+    <string name="git_hub">https://github.com/RogerSilva2</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="menu_item_characters">Characters</string>
+    <string name="menu_item_comics">Comics</string>
+    <string name="menu_item_creators">Creators</string>
+    <string name="menu_item_events">Events</string>
+    <string name="menu_item_series">Series</string>
+    <string name="menu_item_stories">Stories</string>
+
+    <string name="action_acknowledgments">Acknowledgments</string>
+
+    <string name="text_marvel_title">Company Info</string>
+    <string name="text_marvel_description">Marvel Entertainment, LLC, a wholly-owned subsidiary of The Walt Disney Company, is one of the world\'s most prominent character-based entertainment companies, built on a proven library of more than 8,000 characters featured in a variety of media over seventy-five years. Marvel utilizes its character franchises in entertainment, licensing and publishing. For more information visit marvel.com. © 2017 MARVEL</string>
+
+    <string name="error_getting_property">Error getting property</string>
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_item_characters">Personagens</string>
+    <string name="menu_item_comics">Quadrinhos</string>
+    <string name="menu_item_creators">Criadores</string>
+    <string name="menu_item_events">Eventos</string>
+    <string name="menu_item_series">Series</string>
+    <string name="menu_item_stories">Histórias</string>
+
+    <string name="action_acknowledgments">Agradecimentos</string>
+
+    <string name="text_marvel_title">Informação da Companhia</string>
+    <string name="text_marvel_description">A Marvel Entertainment, LLC, uma subsidiária integral da The Walt Disney Company, é uma das empresas de entretenimento baseadas em personagens mais proeminentes do mundo, construída sobre uma biblioteca comprovada de mais de 8.000 personagens apresentados em uma variedade de mídias com mais de setenta e cinco anos. A Marvel utiliza suas franquias em caráter de entretenimento, licenciamento e publicação. Para mais informações, visite marvel.com. © 2017 MARVEL</string>
+
+    <string name="error_getting_property">Erro ao obter propriedade</string>
+</resources>
