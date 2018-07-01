@@ -7,10 +7,26 @@
     <string name="menu_item_series">Series</string>
     <string name="menu_item_stories">Histórias</string>
 
+    <string name="message_loading">Carregando</string>
+    <string name="message_connectivity_error">Sem Internet</string>
+
     <string name="action_acknowledgments">Agradecimentos</string>
+    <string name="action_try_again">Tentar novamente</string>
 
     <string name="text_marvel_title">Informação da Companhia</string>
     <string name="text_marvel_description">A Marvel Entertainment, LLC, uma subsidiária integral da The Walt Disney Company, é uma das empresas de entretenimento baseadas em personagens mais proeminentes do mundo, construída sobre uma biblioteca comprovada de mais de 8.000 personagens apresentados em uma variedade de mídias com mais de setenta e cinco anos. A Marvel utiliza suas franquias em caráter de entretenimento, licenciamento e publicação. Para mais informações, visite marvel.com. © 2017 MARVEL</string>
 
+    <string name="error_server_unavailable">Erro servidor indisponível</string>
+    <string name="error_getting_character">Erro ao obter personagem</string>
+    <string name="error_getting_characters">Erro ao obter personagens</string>
+    <string name="error_getting_comic">Erro ao obter quadrinho</string>
+    <string name="error_getting_comics">Erro ao obter quadrinhos</string>
+    <string name="error_getting_creator">Erro ao obter criador</string>
+    <string name="error_getting_creators">Erro ao obter criadores</string>
+    <string name="error_getting_event">Erro ao obter evento</string>
+    <string name="error_getting_events">Erro ao obter eventos</string>
+    <string name="error_getting_series">Erro ao obter series</string>
+    <string name="error_getting_story">Erro ao obter história</string>
+    <string name="error_getting_stories">Erro ao obter histórias</string>
     <string name="error_getting_property">Erro ao obter propriedade</string>
 </resources>

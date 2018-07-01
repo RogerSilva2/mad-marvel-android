@@ -14,8 +14,8 @@ object ServiceGenerator {
         return createService(context, serviceClass, null, null)
     }
 
-    fun <S> createService(context: Context, serviceClass: Class<S>, username: String?,
-                          password: String?): S {
+    private fun <S> createService(context: Context, serviceClass: Class<S>, username: String?,
+                                  password: String?): S {
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
             val authToken = Credentials.basic(username, password)
             return createService(context, serviceClass, authToken)
@@ -24,8 +24,8 @@ object ServiceGenerator {
         return createService(context, serviceClass, null)
     }
 
-    fun <S> createService(context: Context, serviceClass: Class<S>,
-                          authToken: String?): S {
+    private fun <S> createService(context: Context, serviceClass: Class<S>,
+                                  authToken: String?): S {
         val apiBaseUrl = PropertyUtil.property(context, "api.base.url")
 
         val httpClient = OkHttpClient.Builder()

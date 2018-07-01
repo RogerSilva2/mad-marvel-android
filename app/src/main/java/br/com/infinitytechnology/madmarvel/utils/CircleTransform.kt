@@ -17,7 +17,10 @@ class CircleTransform : Transformation {
             source.recycle()
         }
 
-        val bitmap = Bitmap.createBitmap(size, size, source.config)
+        var bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        source.config?.let {
+            bitmap = Bitmap.createBitmap(size, size, source.config)
+        }
 
         val canvas = Canvas(bitmap)
         val paint = Paint()
