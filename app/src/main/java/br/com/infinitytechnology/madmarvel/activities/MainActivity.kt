@@ -11,14 +11,18 @@ import android.view.Menu
 import android.view.MenuItem
 import br.com.infinitytechnology.madmarvel.R
 import br.com.infinitytechnology.madmarvel.entities.Character
+import br.com.infinitytechnology.madmarvel.entities.Comic
 import br.com.infinitytechnology.madmarvel.fragments.CharactersFragment
+import br.com.infinitytechnology.madmarvel.fragments.ComicsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 private const val TAG_FRAGMENT_CHARACTERS = "FRAGMENT_CHARACTERS"
+private const val TAG_FRAGMENT_COMICS = "FRAGMENT_COMICS"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-        CharactersFragment.OnCharactersFragmentInteractionListener {
+        CharactersFragment.OnCharactersFragmentInteractionListener,
+        ComicsFragment.OnComicsFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +77,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 commitCharactersFragment(TAG_FRAGMENT_CHARACTERS)
             }
             R.id.nav_comics -> {
+                commitComicsFragment(TAG_FRAGMENT_COMICS)
             }
             R.id.nav_creators -> {
             }
@@ -107,6 +112,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
     }
 
+    private fun commitComicsFragment(tag: String) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, ComicsFragment.newInstance(tag), tag)
+                .commit()
+    }
+
     override fun onCharactersFragmentInteraction(character: Character) {
+    }
+
+    override fun onComicsFragmentInteraction(comic: Comic) {
     }
 }

@@ -20,8 +20,8 @@ class CharacterAdapter(private val context: Context, private val listener: View.
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val character: LinearLayout = view.layout_character
-        val thumbnail: ImageView = view.image_view_thumbnail
-        val name: TextView = view.text_view_name
+        val thumbnail: ImageView = view.image_view_thumbnail_character
+        val name: TextView = view.text_view_name_character
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.ViewHolder {
