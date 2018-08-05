@@ -13,20 +13,24 @@ import br.com.infinitytechnology.madmarvel.R
 import br.com.infinitytechnology.madmarvel.entities.Character
 import br.com.infinitytechnology.madmarvel.entities.Comic
 import br.com.infinitytechnology.madmarvel.entities.Creator
+import br.com.infinitytechnology.madmarvel.entities.Event
 import br.com.infinitytechnology.madmarvel.fragments.CharactersFragment
 import br.com.infinitytechnology.madmarvel.fragments.ComicsFragment
 import br.com.infinitytechnology.madmarvel.fragments.CreatorsFragment
+import br.com.infinitytechnology.madmarvel.fragments.EventsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 private const val TAG_FRAGMENT_CHARACTERS = "FRAGMENT_CHARACTERS"
 private const val TAG_FRAGMENT_COMICS = "FRAGMENT_COMICS"
 private const val TAG_FRAGMENT_CREATORS = "FRAGMENT_CREATORS"
+private const val TAG_FRAGMENT_EVENTS = "FRAGMENT_EVENTS"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
         CharactersFragment.OnCharactersFragmentInteractionListener,
         ComicsFragment.OnComicsFragmentInteractionListener,
-        CreatorsFragment.OnCreatorsFragmentInteractionListener {
+        CreatorsFragment.OnCreatorsFragmentInteractionListener,
+        EventsFragment.OnEventsFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +91,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 commitCreatorsFragment(TAG_FRAGMENT_CREATORS)
             }
             R.id.nav_events -> {
+                commitEventsFragment(TAG_FRAGMENT_EVENTS)
             }
             R.id.nav_series -> {
             }
@@ -131,6 +136,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
     }
 
+    private fun commitEventsFragment(tag: String) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, EventsFragment.newInstance(tag), tag)
+                .commit()
+    }
+
     override fun onCharactersFragmentInteraction(character: Character) {
     }
 
@@ -138,5 +150,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreatorsFragmentInteraction(creator: Creator) {
+    }
+
+    override fun onEventsFragmentInteraction(event: Event) {
     }
 }
