@@ -12,17 +12,21 @@ import android.view.MenuItem
 import br.com.infinitytechnology.madmarvel.R
 import br.com.infinitytechnology.madmarvel.entities.Character
 import br.com.infinitytechnology.madmarvel.entities.Comic
+import br.com.infinitytechnology.madmarvel.entities.Creator
 import br.com.infinitytechnology.madmarvel.fragments.CharactersFragment
 import br.com.infinitytechnology.madmarvel.fragments.ComicsFragment
+import br.com.infinitytechnology.madmarvel.fragments.CreatorsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 private const val TAG_FRAGMENT_CHARACTERS = "FRAGMENT_CHARACTERS"
 private const val TAG_FRAGMENT_COMICS = "FRAGMENT_COMICS"
+private const val TAG_FRAGMENT_CREATORS = "FRAGMENT_CREATORS"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
         CharactersFragment.OnCharactersFragmentInteractionListener,
-        ComicsFragment.OnComicsFragmentInteractionListener {
+        ComicsFragment.OnComicsFragmentInteractionListener,
+        CreatorsFragment.OnCreatorsFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 commitComicsFragment(TAG_FRAGMENT_COMICS)
             }
             R.id.nav_creators -> {
+                commitCreatorsFragment(TAG_FRAGMENT_CREATORS)
             }
             R.id.nav_events -> {
             }
@@ -119,9 +124,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
     }
 
+    private fun commitCreatorsFragment(tag: String) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, CreatorsFragment.newInstance(tag), tag)
+                .commit()
+    }
+
     override fun onCharactersFragmentInteraction(character: Character) {
     }
 
     override fun onComicsFragmentInteraction(comic: Comic) {
+    }
+
+    override fun onCreatorsFragmentInteraction(creator: Creator) {
     }
 }
