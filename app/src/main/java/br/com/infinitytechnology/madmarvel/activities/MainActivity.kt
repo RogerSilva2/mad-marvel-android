@@ -10,14 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import br.com.infinitytechnology.madmarvel.R
-import br.com.infinitytechnology.madmarvel.entities.Character
-import br.com.infinitytechnology.madmarvel.entities.Comic
-import br.com.infinitytechnology.madmarvel.entities.Creator
-import br.com.infinitytechnology.madmarvel.entities.Event
-import br.com.infinitytechnology.madmarvel.fragments.CharactersFragment
-import br.com.infinitytechnology.madmarvel.fragments.ComicsFragment
-import br.com.infinitytechnology.madmarvel.fragments.CreatorsFragment
-import br.com.infinitytechnology.madmarvel.fragments.EventsFragment
+import br.com.infinitytechnology.madmarvel.entities.*
+import br.com.infinitytechnology.madmarvel.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -25,12 +19,14 @@ private const val TAG_FRAGMENT_CHARACTERS = "FRAGMENT_CHARACTERS"
 private const val TAG_FRAGMENT_COMICS = "FRAGMENT_COMICS"
 private const val TAG_FRAGMENT_CREATORS = "FRAGMENT_CREATORS"
 private const val TAG_FRAGMENT_EVENTS = "FRAGMENT_EVENTS"
+private const val TAG_FRAGMENT_SERIES = "FRAGMENT_SERIES"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
         CharactersFragment.OnCharactersFragmentInteractionListener,
         ComicsFragment.OnComicsFragmentInteractionListener,
         CreatorsFragment.OnCreatorsFragmentInteractionListener,
-        EventsFragment.OnEventsFragmentInteractionListener {
+        EventsFragment.OnEventsFragmentInteractionListener,
+        SeriesFragment.OnSeriesFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +39,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -94,6 +91,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 commitEventsFragment(TAG_FRAGMENT_EVENTS)
             }
             R.id.nav_series -> {
+                commitSeriesFragment(TAG_FRAGMENT_SERIES)
             }
             R.id.nav_stories -> {
             }
@@ -143,6 +141,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
     }
 
+    private fun commitSeriesFragment(tag: String) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, SeriesFragment.newInstance(tag), tag)
+                .commit()
+    }
+
     override fun onCharactersFragmentInteraction(character: Character) {
     }
 
@@ -153,5 +158,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onEventsFragmentInteraction(event: Event) {
+    }
+
+    override fun onSeriesFragmentInteraction(series: Series) {
     }
 }

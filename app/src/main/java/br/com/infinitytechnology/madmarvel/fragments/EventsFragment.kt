@@ -88,16 +88,15 @@ class EventsFragment : Fragment(), View.OnClickListener {
             val apiKey = PropertyUtil.property(it, "api.key")
             val hash = PropertyUtil.property(it, "hash")
             val service = ServiceGenerator.createService(it, EventsService::class.java)
-            val creatorsCall = service.events(ts, apiKey, hash, null,
-                    null, null, null, null, null,
+            val eventsCall = service.events(ts, apiKey, hash, null,
                     null, null, null, null,
-                    null)
-            creatorsCall.enqueue(object : Callback<EventDataWrapper> {
+                    null, null, null, null, null, null)
+            eventsCall.enqueue(object : Callback<EventDataWrapper> {
                 override fun onResponse(call: Call<EventDataWrapper>,
                                         response: Response<EventDataWrapper>) {
                     if (response.isSuccessful) {
                         mEvents.clear()
-                        response.body()?.data?.results?.let { mEvents.addAll(it) }
+                        response.body()?.data?.results?.let { it -> mEvents.addAll(it) }
                         refreshAdapter(view)
                     } else {
                         view.swipe_refresh_events.visibility = View.GONE
@@ -150,7 +149,8 @@ class EventsFragment : Fragment(), View.OnClickListener {
         if (context is OnEventsFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnEventsFragmentInteractionListener")
+            throw RuntimeException(context.toString() +
+                    " must implement OnEventsFragmentInteractionListener")
         }
     }
 

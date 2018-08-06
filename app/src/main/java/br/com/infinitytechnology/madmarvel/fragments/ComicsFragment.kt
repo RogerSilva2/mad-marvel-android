@@ -88,7 +88,8 @@ class ComicsFragment : Fragment(), View.OnClickListener {
             val ts = PropertyUtil.property(it, "ts")
             val apiKey = PropertyUtil.property(it, "api.key")
             val hash = PropertyUtil.property(it, "hash")
-            val service = ServiceGenerator.createService(it, ComicsService::class.java)
+            val service =
+                    ServiceGenerator.createService(it, ComicsService::class.java)
             val comicsCall = service.comics(ts, apiKey, hash, null,
                     null, null, null, null, null,
                     null, null, null, null,
@@ -101,7 +102,7 @@ class ComicsFragment : Fragment(), View.OnClickListener {
                                         response: Response<ComicDataWrapper>) {
                     if (response.isSuccessful) {
                         mComics.clear()
-                        response.body()?.data?.results?.let { mComics.addAll(it) }
+                        response.body()?.data?.results?.let { it -> mComics.addAll(it) }
                         refreshAdapter(view)
                     } else {
                         view.swipe_refresh_comics.visibility = View.GONE
@@ -154,7 +155,8 @@ class ComicsFragment : Fragment(), View.OnClickListener {
         if (context is OnComicsFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnComicsFragmentInteractionListener")
+            throw RuntimeException(context.toString() +
+                    " must implement OnComicsFragmentInteractionListener")
         }
     }
 

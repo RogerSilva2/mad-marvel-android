@@ -87,17 +87,19 @@ class CreatorsFragment : Fragment(), View.OnClickListener {
             val ts = PropertyUtil.property(it, "ts")
             val apiKey = PropertyUtil.property(it, "api.key")
             val hash = PropertyUtil.property(it, "hash")
-            val service = ServiceGenerator.createService(it, CreatorsService::class.java)
-            val creatorsCall = service.creators(ts, apiKey, hash, null,
-                    null, null, null, null, null,
+            val service =
+                    ServiceGenerator.createService(it, CreatorsService::class.java)
+            val creatorsCall = service.creators(ts, apiKey, hash,
                     null, null, null, null,
-                    null, null, null, null, null, null)
+                    null, null, null,
+                    null, null, null, null,
+                    null, null, null, null, null)
             creatorsCall.enqueue(object : Callback<CreatorDataWrapper> {
                 override fun onResponse(call: Call<CreatorDataWrapper>,
                                         response: Response<CreatorDataWrapper>) {
                     if (response.isSuccessful) {
                         mCreators.clear()
-                        response.body()?.data?.results?.let { mCreators.addAll(it) }
+                        response.body()?.data?.results?.let { it -> mCreators.addAll(it) }
                         refreshAdapter(view)
                     } else {
                         view.swipe_refresh_creators.visibility = View.GONE
@@ -150,7 +152,8 @@ class CreatorsFragment : Fragment(), View.OnClickListener {
         if (context is OnCreatorsFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnCreatorsFragmentInteractionListener")
+            throw RuntimeException(context.toString() +
+                    " must implement OnCreatorsFragmentInteractionListener")
         }
     }
 
