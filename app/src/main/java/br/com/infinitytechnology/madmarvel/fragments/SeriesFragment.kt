@@ -91,7 +91,7 @@ class SeriesFragment : Fragment(), View.OnClickListener {
             val seriesCall = service.series(ts, apiKey, hash, null,
                     null, null, null, null, null,
                     null, null, null, null, null,
-                    null, null, null)
+                    null, 20, 0)
             seriesCall.enqueue(object : Callback<SeriesDataWrapper> {
                 override fun onResponse(call: Call<SeriesDataWrapper>,
                                         response: Response<SeriesDataWrapper>) {

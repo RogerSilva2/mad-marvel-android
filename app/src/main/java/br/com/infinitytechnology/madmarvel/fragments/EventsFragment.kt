@@ -90,7 +90,7 @@ class EventsFragment : Fragment(), View.OnClickListener {
             val service = ServiceGenerator.createService(it, EventsService::class.java)
             val eventsCall = service.events(ts, apiKey, hash, null,
                     null, null, null, null,
-                    null, null, null, null, null, null)
+                    null, null, null, null, 20, 0)
             eventsCall.enqueue(object : Callback<EventDataWrapper> {
                 override fun onResponse(call: Call<EventDataWrapper>,
                                         response: Response<EventDataWrapper>) {

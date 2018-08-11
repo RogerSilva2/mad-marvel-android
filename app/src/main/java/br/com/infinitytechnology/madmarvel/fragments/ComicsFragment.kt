@@ -95,8 +95,8 @@ class ComicsFragment : Fragment(), View.OnClickListener {
                     null, null, null, null,
                     null, null, null, null, null, null,
                     null, null, null, null, null,
-                    null, null, null, null, null,
-                    null)
+                    null, null, null, null, 20,
+                    0)
             comicsCall.enqueue(object : Callback<ComicDataWrapper> {
                 override fun onResponse(call: Call<ComicDataWrapper>,
                                         response: Response<ComicDataWrapper>) {

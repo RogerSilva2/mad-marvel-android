@@ -20,13 +20,15 @@ private const val TAG_FRAGMENT_COMICS = "FRAGMENT_COMICS"
 private const val TAG_FRAGMENT_CREATORS = "FRAGMENT_CREATORS"
 private const val TAG_FRAGMENT_EVENTS = "FRAGMENT_EVENTS"
 private const val TAG_FRAGMENT_SERIES = "FRAGMENT_SERIES"
+private const val TAG_FRAGMENT_STORIES = "FRAGMENT_STORIES"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
         CharactersFragment.OnCharactersFragmentInteractionListener,
         ComicsFragment.OnComicsFragmentInteractionListener,
         CreatorsFragment.OnCreatorsFragmentInteractionListener,
         EventsFragment.OnEventsFragmentInteractionListener,
-        SeriesFragment.OnSeriesFragmentInteractionListener {
+        SeriesFragment.OnSeriesFragmentInteractionListener,
+        StoriesFragment.OnStoriesFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 commitSeriesFragment(TAG_FRAGMENT_SERIES)
             }
             R.id.nav_stories -> {
+                commitStoriesFragment(TAG_FRAGMENT_STORIES)
             }
         }
 
@@ -148,6 +151,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .commit()
     }
 
+    private fun commitStoriesFragment(tag: String) {
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, StoriesFragment.newInstance(tag), tag)
+                .commit()
+    }
+
     override fun onCharactersFragmentInteraction(character: Character) {
     }
 
@@ -161,5 +171,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onSeriesFragmentInteraction(series: Series) {
+    }
+
+    override fun onStoriesFragmentInteraction(story: Story) {
     }
 }

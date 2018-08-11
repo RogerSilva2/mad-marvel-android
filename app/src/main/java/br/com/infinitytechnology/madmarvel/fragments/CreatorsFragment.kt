@@ -93,7 +93,7 @@ class CreatorsFragment : Fragment(), View.OnClickListener {
                     null, null, null, null,
                     null, null, null,
                     null, null, null, null,
-                    null, null, null, null, null)
+                    null, null, null, 20, 0)
             creatorsCall.enqueue(object : Callback<CreatorDataWrapper> {
                 override fun onResponse(call: Call<CreatorDataWrapper>,
                                         response: Response<CreatorDataWrapper>) {

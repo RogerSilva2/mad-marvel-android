@@ -2,6 +2,7 @@ package br.com.infinitytechnology.madmarvel.fragments
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
@@ -12,27 +13,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import br.com.infinitytechnology.madmarvel.R
-import br.com.infinitytechnology.madmarvel.adapters.CharacterAdapter
-import br.com.infinitytechnology.madmarvel.entities.Character
-import br.com.infinitytechnology.madmarvel.entities.CharacterDataWrapper
-import br.com.infinitytechnology.madmarvel.interfaces.CharactersService
+import br.com.infinitytechnology.madmarvel.adapters.StoryAdapter
+import br.com.infinitytechnology.madmarvel.entities.Story
+import br.com.infinitytechnology.madmarvel.entities.StoryDataWrapper
+import br.com.infinitytechnology.madmarvel.interfaces.StoriesService
 import br.com.infinitytechnology.madmarvel.utils.PropertyUtil
 import br.com.infinitytechnology.madmarvel.utils.ServiceGenerator
-import kotlinx.android.synthetic.main.fragment_characters.view.*
+import kotlinx.android.synthetic.main.fragment_stories.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 private const val ARG_TAG = "TAG"
 
-class CharactersFragment : Fragment(), View.OnClickListener {
+class StoriesFragment : Fragment(), View.OnClickListener {
 
     private var mProgressDialog: ProgressDialog? = null
     private var mTag: String? = null
-    private val mCharacters = ArrayList<Character>()
+    private val mStories = ArrayList<Story>()
 
-    private var listener: OnCharactersFragmentInteractionListener? = null
+    private var listener: OnStoriesFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,20 +53,19 @@ class CharactersFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view =
-                inflater.inflate(R.layout.fragment_characters, container, false)
-        view.swipe_refresh_characters.setColorSchemeResources(R.color.colorAccent)
-        view.swipe_refresh_characters.setOnRefreshListener { refreshList(view) }
+        val view = inflater.inflate(R.layout.fragment_stories, container, false)
+        view.swipe_refresh_stories.setColorSchemeResources(R.color.colorAccent)
+        view.swipe_refresh_stories.setOnRefreshListener { refreshList(view) }
 
-        view.recycler_view_characters.setHasFixedSize(true)
-        view.recycler_view_characters.layoutManager = LinearLayoutManager(activity,
+        view.recycler_view_stories.setHasFixedSize(true)
+        view.recycler_view_stories.layoutManager = LinearLayoutManager(activity,
                 LinearLayoutManager.VERTICAL, false)
-        view.recycler_view_characters.itemAnimator = DefaultItemAnimator()
+        view.recycler_view_stories.itemAnimator = DefaultItemAnimator()
         context?.let {
-            view.recycler_view_characters.adapter = CharacterAdapter(it, this, mCharacters)
+            view.recycler_view_stories.adapter = StoryAdapter(it, this, mStories)
         }
 
-        view.try_again_characters.setOnClickListener {
+        view.try_again_stories.setOnClickListener {
             mProgressDialog?.show()
             refreshList(view)
         }
@@ -83,36 +84,35 @@ class CharactersFragment : Fragment(), View.OnClickListener {
     }
 
     private fun refreshList(view: View) {
-        context?.let { it ->
+        context?.let {
             val ts = PropertyUtil.property(it, "ts")
             val apiKey = PropertyUtil.property(it, "api.key")
             val hash = PropertyUtil.property(it, "hash")
-            val service =
-                    ServiceGenerator.createService(it, CharactersService::class.java)
-            val charactersCall = service.characters(ts, apiKey, hash,
-                    null,null, null, null, null,
-                    null, null, null, 20, 0)
-            charactersCall.enqueue(object : Callback<CharacterDataWrapper> {
-                override fun onResponse(call: Call<CharacterDataWrapper>,
-                               response: Response<CharacterDataWrapper>) {
+            val service = ServiceGenerator.createService(it, StoriesService::class.java)
+            val storiesCall = service.stories(ts, apiKey, hash, null,
+                    null, null, null, null, null,
+                    null, 20, 0)
+            storiesCall.enqueue(object : Callback<StoryDataWrapper> {
+                override fun onResponse(call: Call<StoryDataWrapper>,
+                                        response: Response<StoryDataWrapper>) {
                     if (response.isSuccessful) {
-                        mCharacters.clear()
-                        response.body()?.data?.results?.let { it -> mCharacters.addAll(it) }
+                        mStories.clear()
+                        response.body()?.data?.results?.let { it -> mStories.addAll(it) }
                         refreshAdapter(view)
                     } else {
-                        view.swipe_refresh_characters.visibility = View.GONE
-                        view.layout_connectivity_error_characters.visibility = View.VISIBLE
-                        view.swipe_refresh_characters.isRefreshing = false
+                        view.swipe_refresh_stories.visibility = View.GONE
+                        view.layout_connectivity_error_stories.visibility = View.VISIBLE
+                        view.swipe_refresh_stories.isRefreshing = false
                         mProgressDialog?.hide()
                         Log.i(getString(R.string.app_name), getString(R.string.error_getting_characters))
                         showSnackbar(view, R.string.error_getting_characters)
                     }
                 }
 
-                override fun onFailure(call: Call<CharacterDataWrapper>, t: Throwable) {
-                    view.swipe_refresh_characters.visibility = View.GONE
-                    view.layout_connectivity_error_characters.visibility = View.VISIBLE
-                    view.swipe_refresh_characters.isRefreshing = false
+                override fun onFailure(call: Call<StoryDataWrapper>, t: Throwable) {
+                    view.swipe_refresh_stories.visibility = View.GONE
+                    view.layout_connectivity_error_stories.visibility = View.VISIBLE
+                    view.swipe_refresh_stories.isRefreshing = false
                     mProgressDialog?.hide()
                     Log.e(getString(R.string.app_name), getString(R.string.error_server_unavailable), t)
                     showSnackbar(view, R.string.error_server_unavailable)
@@ -122,36 +122,35 @@ class CharactersFragment : Fragment(), View.OnClickListener {
     }
 
     private fun refreshAdapter(view: View) {
-        view.layout_connectivity_error_characters.visibility = View.GONE
-        view.swipe_refresh_characters.visibility = View.VISIBLE
+        view.layout_connectivity_error_stories.visibility = View.GONE
+        view.swipe_refresh_stories.visibility = View.VISIBLE
         context?.let {
-            view.recycler_view_characters.adapter = CharacterAdapter(it, this, mCharacters)
+            view.recycler_view_stories.adapter = StoryAdapter(it, this, mStories)
         }
 
-        view.swipe_refresh_characters.isRefreshing = false
+        view.swipe_refresh_stories.isRefreshing = false
         mProgressDialog?.hide()
     }
 
     private fun showSnackbar(view: View, @StringRes resId: Int) {
-        Snackbar.make(view.recycler_view_characters, resId, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(view.recycler_view_stories, resId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun onClick(view: View) {
         val id = view.tag as Int
-        onButtonPressed(mCharacters[id])
+        onButtonPressed(mStories[id])
     }
 
-    private fun onButtonPressed(character: Character) {
-        listener?.onCharactersFragmentInteraction(character)
+    fun onButtonPressed(story: Story) {
+        listener?.onStoriesFragmentInteraction(story)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnCharactersFragmentInteractionListener) {
+        if (context is OnStoriesFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() +
-                    " must implement OnCharactersFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnStoriesFragmentInteractionListener")
         }
     }
 
@@ -160,14 +159,14 @@ class CharactersFragment : Fragment(), View.OnClickListener {
         listener = null
     }
 
-    interface OnCharactersFragmentInteractionListener {
-        fun onCharactersFragmentInteraction(character: Character)
+    interface OnStoriesFragmentInteractionListener {
+        fun onStoriesFragmentInteraction(story: Story)
     }
 
     companion object {
         @JvmStatic
         fun newInstance(tag: String) =
-                CharactersFragment().apply {
+                StoriesFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_TAG, tag)
                     }
